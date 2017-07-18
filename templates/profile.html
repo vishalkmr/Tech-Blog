@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Vishal">
+
+    <title> Profile - Tech Blog </title>
+
+
+<style>
+    #success_message{ display: none;}
+</style>
+    <link href="/static/file_input/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="/static/file_input/themes/explorer/theme.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/static/file_input/js/plugins/sortable.js" type="text/javascript"></script>
+    <script src="/static/file_input/js/fileinput.js" type="text/javascript"></script>
+    <script src="/static/file_input/js/locales/fr.js" type="text/javascript"></script>
+    <script src="/static/file_input/js/locales/es.js" type="text/javascript"></script>
+    <script src="/static/file_input/themes/explorer/theme.js" type="text/javascript"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="{{url_for('static',filename='css/clean-blog.min.css')}}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{url_for('static',filename='vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+	</head>
+
+<body style="min-width:100%;">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" style="min-width:100%; background-color:transparent;"  >
+        <div class="container-fluid" >
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+
+                <button type="button" class="navbar-toggle " data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" >
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" style="font-family:AR DESTINE; font-size:29px; color:#85a6c8   ; "href="/"><span class="glyphicon glyphicon-fire    " style="font-size:; border:none; color:#f77;    " aria-hidden="true"></span>Tech Blog</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a style="font-size:18px;font-family:Arial Rounded MT Bold;" href="../">Home</a>
+                    </li>
+                      <li>
+                        <a style="font-size:18px;font-family:Arial Rounded MT Bold ;" href="/post"> Posts</a>
+                    </li>
+                       {% if userid == "@none@" %}
+                        {% else %}
+                       <li>
+                        <a style="font-size:18px;font-family:Arial Rounded MT Bold ;" href="/my_post/{{userid}}+">My Post</a>
+                    </li>
+
+                       {% endif%}
+
+                    <li>
+                        <a style="font-size:18px;font-family:Arial Rounded MT Bold ;" href="/about">About</a>
+                    </li>
+
+
+
+                    <li>
+                        <a style="font-size:18px;font-family:Arial Rounded MT Bold ;" href="/contact">Contact</a>
+                    </li>
+
+                    <li>
+                        {% if userid == "@none@" %}
+                          <!-- LOGIN -->
+                            <a href="/login/"  onmouseover="style='font-family:Arial Rounded MT Bold ;margin-top:14px;font-size:18px; background-color:rgba(81, 251, 92, 1);;border-radius:64px;padding-top:px;padding-bottom:px;padding: 2px 11px; color:white;margin-left:10px;margin-right:10px'" onmouseout="style='font-family:Arial Rounded MT Bold ;margin-top:14px;font-size:18px; background-color:rgba(81, 251, 92, 1);border-radius:64px;padding-top:px;padding-bottom:px;padding: 2px 11px; color:;margin-left:10px;margin-right:10px;'"   type="button" style=" font-family:Arial Rounded MT Bold ;margin-left:10px; margin-top:14px;font-size:18px; background-color:rgba(81, 251, 92, 1);border-radius:64px;padding-top:px;padding-bottom:px;padding: 2px 11px; color:;margin-right:10px;" class="btn  ">L<span style="font-size:12px;" class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>gin </a></li>
+                         {% else %}
+                          <!--ADD POST -->
+                             <li> <a style="   font-family:Arial Rounded MT Bold; margin-top:px;font-size:18px; background:none;;border:none;" href="/add_post/">Add P<span class="glyphicon glyphicon-upload" style="font-size:12px;"    aria-hidden="true"></span>st </a></li>
+                    {% if status == "Admin" %}
+                      <li>
+                        <a style="font-size:18px;font-family:Arial Rounded MT Bold ;color:green;" href="/admin/-">
+                                    <i class="fa   fa-android   " style="font-size:21px;color:;"></i>
+                            Admin</a>
+                    </li>
+                      {% else %}
+                       {% endif%}
+
+
+
+
+                                      <!-- profile   -->
+                                   <li> <a style=" color:blue; font-family:Arial Rounded MT Bold   ; margin-top:px; font-size:18px; " href="/profile/"><span class="glyphicon glyphicon-user" style="font-size:18px;" aria-hidden="true" ></span> Profile </a></li>                                       <!-- LOGOUT -->
+
+                                      <li> <a style="color:red;  font-family:Arial Rounded MT Bold ; font-size:18px; "    href="/logout/"> <span class="glyphicon glyphicon-off" style="font-size:18px; margin-top:px;" aria-hidden="true"></span> Logout </a></li>
+
+                                  </ul>
+                                </div>
+                        </li>
+
+
+                           {% endif%}
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+
+{% for category, message in get_flashed_messages(with_categories=true) %}
+    {%if message%}
+      <div class="alert alert-{{category}} alert-dismissible" style="" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong></strong><center> {{message}}</center>
+      </div>
+    {% endif%}
+
+{% endfor %}
+
+
+<section class="bg" id="about" style="    background-color: ;margin-top:-10%;">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+				     
+                    <h3 class="section-heading" style="color:blue;font-family:inherit;	" ><hr > Profile Details<hr></h3>
+                  
+                    <p class="text-faded">Username - {{user.username}}</p>
+                    <p class="text-faded">Userid - {{user.userid}}</p>
+                    <p class="text-faded">Email-id - {{user.email}}</p>
+                     <p class="text-faded">Profile picture : <img src="/static/img/profile/{{user.userid}}.jpg" style="margin-left:10px;height:150px;width:150px;" onmouseout="style='margin-left:10px;height:150px;width:150px;'"  onmouseover="style='margin-left:10px;height:170px;width:170px;'"></p>
+
+                    <p class="text-faded">Gender - {{user.gender}}</p>
+
+                    <p class="text-faded">Mobile no. - {{user.mobile}}</p>
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+<br><br>
+<section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <hr class="primary">
+                    <h2 style="font-family:  'Times New Roman', Times, serif;font-style:bold;    font-size:35px; margin-top:-10px; color:#590e80e6; text-align:center;">Update Profile</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+
+
+
+            <div class="col-lg-3 col-md-1 text-center"s>
+                    <div class="service-box">
+                               <button   type="button" style="background-color:;margin-bottom:1%;" class="btn btn-lg btn-info   " data-toggle="modal" data-target="#myModal5"> Email-id </button></li>
+
+                        <!-- Modal for login-->
+                           <div class="modal fade"   id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header" style="background-color:rgba(91, 192, 222, 0.39);">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                   <h4 class="modal-title" id="myModalLabel5"><span class="glyphicon glyphicon-fire    " style="font-size:27px; border:none; color:#f77;    " aria-hidden="true"></span> UPDATE EMAIL-ID</h4>
+                              </div>
+                              <div class="modal-body">
+                            <form action="/update_profile/email" id="email_form" method="POST" >
+                               <div class="form-group">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                              <input name="email" placeholder="Your email-id ." class="form-control" type="email">
+
+                                              </div>
+                                            </div>
+                                <div class="modal-footer">
+                                    <button   type="button" style=" border-radius:12px; " class="btn btn-warning " data-dismiss="modal">Close</button>
+                                    <button type="submit"style=" background-color: #44cf22; boader-color:red;border-radius:12px; "  class="btn btn-success"><span class="glyphicon glyphicon-update" aria-hidden="true"> </span>Update</button>
+                                </div>
+                            </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+            </div>
+        </div>
+             <div class="col-lg-2 col-md-1 text-center">
+                    <div class="service-box">
+                          <button   type="button" style="margin-bottom:1%; " class="btn btn-lg  btn-success  " data-toggle="modal" data-target="#myModal2"> Password </button></li>
+                        <!-- Modal for login-->
+                           <div class="modal fade"   id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header" style="background-color:rgba(13, 214, 13, 0.29);">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                   <h4 class="modal-title" id="myModalLabel2"><span class="glyphicon glyphicon-fire    " style="font-size:27px; border:none; color:#f77;    " aria-hidden="true"></span> UPDATE PASSWORD</h4>
+                              </div>
+                              <div class="modal-body">
+                            <form id="pass_form" action="/update_profile/password" method="POST" >
+                                  <div class="form-group">
+                                        <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <input type="password" class="form-control" placeholder="Password" name="password1" value="{{request.form.password1}}">
+                                    </div>
+
+                                     </div>
+                                  <div class="form-group">
+                                        <div class="input-group">
+                                   <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                     <input type="password" class="form-control" placeholder="Confirm Password" name="password2" value="{{request.form.password2}}" >
+                                        </div>
+                                  </div>
+
+                                <div class="modal-footer">
+                                    <button   type="button" style=" border-radius:12px; " class="btn btn-warning " data-dismiss="modal">Close</button>
+                                    <button type="submit"style=" background-color: #44cf22; boader-color:red;border-radius:12px; "  class="btn btn-success"><span class="glyphicon glyphicon-update" aria-hidden="true"> </span>Update</button>
+                                </div>
+                            </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+            </div>
+        </div>
+             <div class="col-lg-2 col-md-1 text-center" >
+                    <div class="service-box" >
+                          <button   type="button" style=" margin-bottom:1%;" class="btn btn-lg btn-danger " data-toggle="modal" data-target="#myModal1"> Profile Picture </button></li>
+
+                        <!-- Modal for login-->
+                           <div class="modal fade"   id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header" style="background-color:rgba(244, 67, 54, 0.45)">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                   <h4 class="modal-title" id="myModalLabel1"><span class="glyphicon glyphicon-fire    " style="font-size:27px; border:none; color:#f77;    " aria-hidden="true"></span> UPDATE PROFILE PICTURE</h4>
+                              </div>
+                              <div class="modal-body">
+                            <form action="/update_profile/profile_picture" id="picture_form" enctype="multipart/form-data"   method="POST" >
+                                <div class="form-group">
+
+                                   <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+
+                                                <input id="file-0d"  name="file" class="file" type="file">
+                                            </div></div>
+                                <div class="modal-footer">
+                                    <button   type="button" style=" border-radius:12px; " class="btn btn-warning " data-dismiss="modal">Close</button>
+                                    <button type="submit"style=" background-color: #44cf22; boader-color:red;border-radius:12px; "  class="btn btn-success"><span class="glyphicon glyphicon-update" aria-hidden="true"> </span>Update</button>
+                                </div>
+                            </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+            </div>
+        </div>
+             <div class="col-lg-2 col-md-1 text-center">
+                    <div class="service-box">
+                                     <button   type="button" style="background-color:;margin-bottom:1%;" class="btn btn-lg  btn-warning  " data-toggle="modal" data-target="#myModal3"> User-id </button></li>
+
+                        <!-- Modal for login-->
+                           <div class="modal fade"   id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header"  style="background-color:rgba(255, 191, 0, 0.41);">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                   <h4 class="modal-title" id="myModalLabel3"><span class="glyphicon glyphicon-fire    " style="font-size:27px; border:none; color:#f77;    " aria-hidden="true"></span> UPDATE USERID</h4>
+                              </div>
+                              <div class="modal-body">
+                            <form id="userid_form" action="/update_profile/userid" method="POST" >
+                             <div class="form-group">
+
+
+                              <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                              <input  name="userid"  value="{{request.form.userid}}" placeholder="User-id" class="form-control"  type="text">
+                                </div>
+
+</div>
+                                <div class="modal-footer">
+                                    <button   type="button" style=" border-radius:12px; " class="btn btn-warning " data-dismiss="modal">Close</button>
+                                    <button type="submit"style=" background-color: #44cf22; boader-color:red;border-radius:12px; "  class="btn btn-success"><span class="glyphicon glyphicon-update" aria-hidden="true"> </span>Update</button>
+                                </div>
+                            </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+            </div>
+        </div>
+              <div class="col-lg-3 col-md-1 text-center"s>
+                    <div class="service-box">
+                               <button   type="button" style="background-color:;margin-bottom:1%;" class="btn btn-lg btn-info   " data-toggle="modal" data-target="#myModal4"> Mobile </button></li>
+
+                        <!-- Modal for login-->
+                           <div class="modal fade"   id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header" style="background-color:rgba(91, 192, 222, 0.39);">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                   <h4 class="modal-title" id="myModalLabel4"><span class="glyphicon glyphicon-fire    " style="font-size:27px; border:none; color:#f77;    " aria-hidden="true"></span> UPDATE MOBILE NO.</h4>
+                              </div>
+                              <div class="modal-body">
+                            <form action="/update_profile/mobile" id="mobile_form" method="POST" >
+                               <div class="form-group">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                              <input name="mobile" placeholder="Your 10 digit mobile no ." class="form-control" type="text">
+
+                                              </div>
+                                            </div>
+                                <div class="modal-footer">
+                                    <button   type="button" style=" border-radius:12px; " class="btn btn-warning " data-dismiss="modal">Close</button>
+                                    <button type="submit"style=" background-color: #44cf22; boader-color:red;border-radius:12px; "  class="btn btn-success"><span class="glyphicon glyphicon-update" aria-hidden="true"> </span>Update</button>
+                                </div>
+                            </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+            </div>
+        </div>
+
+
+
+</div>
+</div>
+            </div>
+    </section>
+
+<br><br>
+
+
+<section id="service">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <hr class="primary">
+                    <h2 style="font-family:  'Times New Roman', Times, serif;font-style:bold;    font-size:35px; margin-top:-10px; color:#590e80e6; text-align:center;"> Delete Your Account </h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+
+
+             <div class=" text-center" style="text-align:center;">
+                    <div class="service-box" >
+                          <button   type="button" style="  margin-bottom:1%;" class="btn btn-lg btn-danger " data-toggle="modal" data-target="#myModal8"> <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>  Detete </button></li>
+
+                        <!-- Modal for login-->
+                           <div class="modal fade"   id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel8">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header" style="background-color:rgba(244, 67, 54, 0.45);">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                   <h4 class="modal-title" id="myModalLabel8"><span class="glyphicon glyphicon-fire    " style="font-size:27px; border:none; color:#f77;    " aria-hidden="true"></span> DELETE YOUR ACCOUNT</h4>
+                              </div>
+                              <div class="modal-body">
+                            <form action="/update_profile/delete_account" id="" enctype="multipart/form-data"   method="POST" >
+                                <div class="form-group">
+
+                                   <div class="input-group" style="text-align:left;">
+                                       Deletion of Account will delete :
+                                       <ul>
+                                          <li>Your Blogs  </li>
+                                          <li> Your Comments  </li>
+                                           <li>Your Likes / Dislike </li>
+                                       </ul>
+                                       <br>
+                                       <text style="text-align:center"> By Clicking on Confirm Button , Your Account Would Be deleted , and You are Logout automatically !</text><br>
+
+
+                                   </div></div>
+                                <div class="modal-footer">
+                                    <button   type="button" style=" border-radius:12px; " class="btn btn-warning " data-dismiss="modal">Close</button>
+                                    <button type="submit"style=" background-color: #44cf22; boader-color:red;border-radius:12px; "  class="btn btn-success">Confirm</button>
+                                </div>
+                            </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+            </div>
+        </div>
+
+
+
+</div>
+</div>
+            </div>
+    </section>
+
+<br>
+ <footer><hr>
+        <div class="container">
+
+                <p class="copyright text-muted">Copyright © Vishal.pythonanywhrere.com 2017</p>
+
+
+        </div>
+    </footer>
+
+
+    <!-- jQuery -->
+    <script src="{{url_for('static',filename='vendor/jquery/jquery.min.js')}}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{url_for('static',filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="{{url_for('static',filename='js/jqBootstrapValidation.js')}}"></script>
+    <script src="{{url_for('static',filename='js/contact_me.js')}}"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="{{url_for('static',filename='js/clean-blog.min.js')}}"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+
+<!-- file input-->
+<script>
+    $('#file-fr').fileinput({
+        language: 'fr',
+        uploadUrl: '#',
+        allowedFileExtensions: ['jpg', 'png', 'gif']
+    });
+    $('#file-es').fileinput({
+        language: 'es',
+        uploadUrl: '#',
+        allowedFileExtensions: ['jpg', 'png', 'gif']
+    });
+    $("#file-0").fileinput({
+        'allowedFileExtensions': ['jpg', 'png', 'gif']
+    });
+    $("#file-1").fileinput({
+        uploadUrl: '#', // you must set a valid URL here else you will get an error
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        overwriteInitial: false,
+        maxFileSize: 1000,
+        maxFilesNum: 10,
+        //allowedFileTypes: ['image', 'video', 'flash'],
+        slugCallback: function (filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
+    });
+    /*
+     $(".file").on('fileselect', function(event, n, l) {
+     alert('File Selected. Name: ' + l + ', Num: ' + n);
+     });
+     */
+    $("#file-3").fileinput({
+        showUpload: false,
+        showCaption: false,
+        browseClass: "btn btn-primary btn-lg",
+        fileType: "any",
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+        overwriteInitial: false,
+        initialPreviewAsData: true,
+        initialPreview: [
+            "http://lorempixel.com/1920/1080/transport/1",
+            "http://lorempixel.com/1920/1080/transport/2",
+            "http://lorempixel.com/1920/1080/transport/3"
+        ],
+        initialPreviewConfig: [
+            {caption: "transport-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1},
+            {caption: "transport-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2},
+            {caption: "transport-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3}
+        ]
+    });
+    $("#file-4").fileinput({
+        uploadExtraData: {kvId: '10'}
+    });
+    $(".btn-warning").on('click', function () {
+        var $el = $("#file-4");
+        if ($el.attr('disabled')) {
+            $el.fileinput('enable');
+        } else {
+            $el.fileinput('disable');
+        }
+    });
+    $(".btn-info").on('click', function () {
+        $("#file-4").fileinput('refresh', {previewClass: 'bg-info'});
+    });
+    /*
+     $('#file-4').on('fileselectnone', function() {
+     alert('Huh! You selected no files.');
+     });
+     $('#file-4').on('filebrowse', function() {
+     alert('File browse clicked for #file-4');
+     });
+     */
+    $(document).ready(function () {
+        $("#test-upload").fileinput({
+            'showPreview': false,
+            'allowedFileExtensions': ['jpg', 'png', 'gif'],
+            'elErrorContainer': '#errorBlock'
+        });
+        $("#kv-explorer").fileinput({
+            'theme': 'explorer',
+            'uploadUrl': '#',
+            overwriteInitial: false,
+            initialPreviewAsData: true,
+            initialPreview: [
+                "http://lorempixel.com/1920/1080/nature/1",
+                "http://lorempixel.com/1920/1080/nature/2",
+                "http://lorempixel.com/1920/1080/nature/3"
+            ],
+            initialPreviewConfig: [
+                {caption: "nature-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1},
+                {caption: "nature-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2},
+                {caption: "nature-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3}
+            ]
+        });
+        /*
+         $("#test-upload").on('fileloaded', function(event, file, previewId, index) {
+         alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
+         });
+         */
+    });
+</script>
+<!-- form validation-->
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
+
+<script>
+  $(document).ready(function() {
+    $('#picture_form').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon',
+            invalid: 'glyphicon glyphicon',
+            validating: 'glyphicon glyphicon'
+        },
+        fields: {
+            file: {
+                validators: {
+
+
+                    notEmpty: {
+                        message: 'Please select a picture'
+                    }
+                }
+            },
+            userid: {
+                validators: {
+                    stringLength: {
+                        min: 3,
+                        message:'Please enter a valid userid '
+                    },
+                    notEmpty: {
+                        message: 'Please enter your userid '
+                    },
+
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter your email address'
+                    },
+                    emailAddress: {
+                        message: 'Please enter a valid email address'
+                    }
+                }
+            },
+            mobile: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter your mobile number'
+                    },
+
+                     phone: {
+                        country: 'US',
+                        message: 'Please enter a valid mobile number'
+                    }
+                }
+            },
+
+
+            comment: {
+                validators: {
+                      stringLength: {
+                        min: 10,
+                        max: 200,
+                        message:'Please enter at least 10 characters and no more than 200'
+                    },
+                    notEmpty: {
+                        message: 'Please supply a description of your project'
+                    }
+                    }
+                }
+            }
+        })
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#contact_form').data('bootstrapValidator').resetForm();
+
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#pass_form').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon',
+            invalid: 'glyphicon glyphicon',
+            validating: 'glyphicon glyphicon'
+        },
+        fields: {
+            username: {
+                validators: {
+                        stringLength: {
+                        min: 3,
+                         message:'Please enter a valid name'
+                    },
+                        notEmpty: {
+                        message: 'Please enter the your name'
+                    }
+
+                }
+            },
+             password1: {
+                validators: {
+                     stringLength: {
+                        min: 3,
+                        message:'Password must have at least 3 characters '
+                    },
+                    notEmpty: {
+                        message: 'Please enter your password'
+                    }
+                }
+            },
+            password2: {
+                validators: {
+
+                     stringLength: {
+                        min: 3,
+                        message:'Password must have at least 3 characters '
+                    },
+                    notEmpty: {
+                        message: 'Please reenter your password'
+                    }
+                }
+            },
+            userid: {
+                validators: {
+                    stringLength: {
+                        min: 3,
+                        message:'Please enter a valid userid '
+                    },
+                    notEmpty: {
+                        message: 'Please enter your userid '
+                    },
+
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter your email address'
+                    },
+                    emailAddress: {
+                        message: 'Please enter a valid email address'
+                    }
+                }
+            },
+            mobile: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter your mobile number'
+                    },
+
+                     phone: {
+                        country: 'US',
+                        message: 'Please enter a valid mobile number'
+                    }
+                }
+            },
+
+
+            comment: {
+                validators: {
+                      stringLength: {
+                        min: 10,
+                        max: 200,
+                        message:'Please enter at least 10 characters and no more than 200'
+                    },
+                    notEmpty: {
+                        message: 'Please supply a description of your project'
+                    }
+                    }
+                }
+            }
+        })
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#contact_form').data('bootstrapValidator').resetForm();
+
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#userid_form').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon',
+            invalid: 'glyphicon glyphicon',
+            validating: 'glyphicon glyphicon'
+        },
+        fields: {
+
+             userid: {
+                validators: {
+                     stringLength: {
+                        min: 3,
+                        message:'Please enter a valid user-id'
+                    },
+                    notEmpty: {
+                        message: 'Please enter your user-id'
+                    }
+                }
+            },
+
+            }
+        })
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#contact_form').data('bootstrapValidator').resetForm();
+
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#mobile_form').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon',
+            invalid: 'glyphicon glyphicon',
+            validating: 'glyphicon glyphicon'
+        },
+        fields: {
+
+            mobile: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter your mobile number'
+                    },
+
+                     phone: {
+                        country: 'US',
+                        message: 'Please enter a valid mobile number'
+                    }
+                }
+            },
+
+
+            comment: {
+                validators: {
+                      stringLength: {
+                        min: 10,
+                        max: 200,
+                        message:'Please enter at least 10 characters and no more than 200'
+                    },
+                    notEmpty: {
+                        message: 'Please supply a description of your project'
+                    }
+                    }
+                }
+            }
+        })
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#contact_form').data('bootstrapValidator').resetForm();
+
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('#email_form').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon',
+            invalid: 'glyphicon glyphicon',
+            validating: 'glyphicon glyphicon'
+        },
+        fields: {
+
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter your email-id'
+                    },
+
+                     emailAddress: {
+
+                        message: 'Please enter a valid email-id'
+                    }
+                }
+            },
+
+
+            comment: {
+                validators: {
+                      stringLength: {
+                        min: 10,
+                        max: 200,
+                        message:'Please enter at least 10 characters and no more than 200'
+                    },
+                    notEmpty: {
+                        message: 'Please supply a description of your project'
+                    }
+                    }
+                }
+            }
+        })
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#contact_form').data('bootstrapValidator').resetForm();
+
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+</script>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

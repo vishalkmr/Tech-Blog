@@ -1,0 +1,19 @@
+*******------------------------------------------------*******
+*	   Tech Blog Spacifications                  *
+*******------------------------------------------------*******
+
+Framework :- Flask. 
+
+Python Version :-  Python 3.5
+
+DataBase :-  Sqlite3 
+	
+Packages :-
+	   1) Flask  ----)))  for implementing the flask-farmework features.   		 
+                       2) flask-sqlalchemy  ----)))  for implementing the Object Relation Mapping.
+                       3) passlib  ----)))  for implementing the sha256 encryption.
+                       4) pillow ----)))  for implementing the image related functions like save.
+	   5) gTTS ----)))  for implementing the Google Text To Speech sevices.
+
+
+ 

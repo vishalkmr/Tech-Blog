@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Login -Tech Blog</title>
+  
+  
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+
+     <link rel="stylesheet" href="{{url_for('static',filename='login_css/login_style.css')}}">
+
+
+
+
+
+</head>
+
+<body style="background-image:url(../static/img/login_bg.PNG)">
+  <div class="login-wrap">
+	 <div class="login-html">
+ <div style="top:;text-align:center;margin-top:-10%;margin-bottom: 15%;"> <a class="navbar-brand" style="font-family:AR DESTINE; font-size:30px; color:#85a6c8   ; "  onmouseover="style='font-family:AR DESTINE; font-size:35px; color:rgb(39, 221, 201) ;'" onmouseout="style='font-family:AR DESTINE; font-size:30px; color:#85a6c8   ;'" href="/">Tech Blog</a></div>
+
+
+	<form method="POST" id="login_form">
+    {%if  error2== 'Please enter all field .' or  error2== 'Invalid Credentials Please Try Again !' or error2=='Check your internet connection . Please Try Again !' %}
+			<input id="tab-1" type="radio" name="tab"  class="sign-in" value="login"  ><label for="tab-1"   style="font-family:Monkai; font-size:20px;" class="tab"> Login</label>
+				<input id="tab-2" type="radio" name="tab"   value="forgot_password" class="sign-up" checked><label for="tab-2" style="font-family:Lora; font-size:16px;" class="tab">Forgot password</label>
+	{% else %}
+		<input id="tab-1" type="radio" name="tab"  class="sign-in" value="login"  checked><label for="tab-1"   style="font-family:Monkai; font-size:20px;" class="tab"> Login</label>
+				<input id="tab-2" type="radio" name="tab"   value="forgot_password" class="sign-up"><label for="tab-2" style="font-family:Lora; font-size:16px;" class="tab">Forgot password</label>
+
+		{%endif%}
+
+		<div class="login-form">
+			<div class="sign-in-htm">
+				<div class="group">
+					<label for="user"  style="font-size:14px;" class="label">Userid</label>
+					<input id="user"   type="text"  name="userid" style="margin-top:4px;"   value="{{request.form.userid}}"  placeholder="Your Tech Blog User-id  ." class="input">
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Password</label>
+					<input id="pass" type="password" style="margin-top:4px;" class="input" name="password" value="{{request.form.password}}"  placeholder="Your Tech Blog password."   data-type="password">
+				</div>
+				<!--<div class="group">
+					<input id="check" type="checkbox" class="check" checked>
+					<label for="check"><span class="icon"></span> Keep me Signed in</label>
+				</div>-->
+				 {% if error1== 'Please enter all field .' or error1== 'Invalid Credentials Please Try Again !' or error1=="You are Deactivated Temporarialy ! Contact me for more details .."%}
+					   <p class="help-block text-danger" style="color:red; text-align:left; font-size:15px;">* {{error1}}</p>
+					{% else %}
+					 {% endif %}
+
+				<div class="group">
+				  <input type="submit" style="font-size:17px; FONT-FAMILY:Cooper Black;FONT-STYLE:BOLD; " class="button" value=" Login ">
+				</div>
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					   <a href="/signup/"   style=" font-style:italic; font-family:Georgia; color:#b6b6bfb3; font-size:20px;text-decoration:none;" onmouseout="style='font-style:italic; font-family:Georgia; color:#b6b6bfb3; font-size:20px;text-decoration:none;'"  onmouseover="style='font-style:italic; font-family:Georgia; color:red; font-size:21px;text-decoration:none;'"  > New User Click here Signup</button></a>
+				</div>
+			
+
+                              
+                                  
+			</div>
+			<div class="sign-up-htm">
+
+			<div class="sign-up-htm">
+				<div class="group">
+					<label for="user"  style="font-size:14px;" class="label">Username</label>
+					<input id=""   type="text"  name="username" style="margin-top:4px;"   value="{{request.form.username}}"  placeholder="Your Tech Blog User Name . " class="input">
+				</div>
+				<div class="group">
+					<label for="user"  style="font-size:14px;" class="label">Userid</label>
+					<input id=""   type="text"  name="userid1" style="margin-top:4px;"   value="{{request.form.userid1}}"  placeholder="Your Tech Blog User-id ." class="input">
+				</div>
+				<div class="group">
+				<label for="pass" class="label">Email Address</label>
+					<input id="" name="email" type="email" value="{{request.form.email}}"  placeholder="Your Tech Blog Registered Email-id ." class="input">
+				</div>
+						<div class="group">
+				<label for="pass" class="label">Mobile No.</label>
+					<input id="" name="mobile" type="tel" value="{{request.form.mobile}}"  placeholder="Your Tech Blog Registered Mobile No ." class="input">
+				</div>
+					<!--<div class="group">
+					<input id="check" type="checkbox" class="check" checked>
+					<label for="check"><span class="icon"></span> Keep me Signed in</label>
+				</div>-->
+				 {% if error2== 'Please enter all field .' or error2== 'Invalid Credentials Please Try Again !'%}
+					   <p class="help-block text-danger" style="color:red; text-align:left; font-size:15px;">* {{error2}}</p>
+					{% else %}
+					 {% endif %}
+
+				<div class="group">
+				  <input type="submit" style="font-size:17px; FONT-FAMILY:Cooper Black;FONT-STYLE:BOLD; " class="button" value=" Update ">
+				</div>
+
+
+
+
+			</div>
+			
+			</div>
+		</form>
+	</div>
+
+</div>
+  
+  
+</body>
+</html>

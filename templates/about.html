@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+
+{% block title  %}
+   About
+{% endblock%}
+
+
+{% block image  %}
+'/static/img/about.jpg'
+{% endblock%}
+
+{% block siteheading  %}
+About Me
+{% endblock%}
+
+{% block subheading  %}
+This is what I do.
+{% endblock%}
+
+
+{% block body  %}
+   <!-- Main Content -->
+
+   <div class="box" >
+                <div class="col-lg"><br>
+                         <hr class="primary">
+                    <h1 style="font-family: Georgia, 'Times New Roman', Times, serif;font-style:bold;  background-color:;  font-size:45px; margin-top:px; color:#6f0000e6; text-align:center;"> About Developer </h1>
+                     <hr class="primary">
+                      <div  class=" col-lg-8 col-lg-offset-2 text-center" style="">
+                     <img src="/static/img/me.jpg" class="img-circle" alt="Responsive image" style=" position:relative; border:red; background:white; margin-left:0px;margin-top:0px;height:270px;width:220px;" >
+                          </div>
+                      <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h1  style="margin-top:10px ;font-family:AR DESTINE; color:#a12f2f;">VISHAL KUMAR</h1>
+                         <p class="text-muted" style="margin-top:10px; font-family:Arial Rounded MT Bold;">Python Programmer </p>
+
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal">
+          Know more   <span class="glyphicon glyphicon-download" style="font-size:;" aria-hidden="true"></span>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header" style="background-color:rgba(91, 192, 222, 0.39);">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               <b> <h3 class="modal-title" id="myModalLabel" style="font-family:AR JULIAN;font-size:29px;text-align:center;"><i class="fa fa-child fa-fw" style="font-size:29px; margin-top:;"> </i>About Myself<i class="fa fa-child fa-fw" style="font-size:29px; margin-top:;"> </i></h3></b>
+              </div>
+              <div class="modal-body">
+                <h4><label class="text-muted"><i class="fa fa-user fa-fw" style="font-size:22px; margin-top:;"> </i>&nbsp; Name :</label>     Vishal kumar</h4>
+                <h4><label class="text-muted"><i class="fa fa-globe fa-fw" style="font-size:22px; margin-top:;"> </i>&nbsp; Country :</label> India</h4>
+                 <h4><label class="text-muted"><i class="fa fa-home fa-fw" style="font-size:22px; margin-top:;"> </i>&nbsp; City :</label>     Gurugram</h4>
+                <h4><label class="text-muted"><span class="glyphicon glyphicon-education    " style="font-size:23px;" aria-hidden="true"></span>&nbsp; Btech :</label> MDU University</h4>
+                   <h4><label class="text-muted"><i class="fa fa-mobile fa-fw" style="font-size:25px; margin-top:;"> </i>&nbsp; Mobile:</label>  8742908254</h4>
+                         <h4><label class="text-muted"><i class="fa fa-envelope fa-fw" style="font-size:22px; margin-top:;"> </i>&nbsp; Email:</label>  vishalkmr363@gmail.com</h4>
+              </div>
+              <div class="modal-footer" style="text-align:center;">
+                   <a style="font-family:AR DESTINE; font-size:28px; color:#85a6c8 ;text-decoration:none;   ; "href="#"><span class="glyphicon glyphicon-fire    " style="font-size25px; border:none; color:#f77;    " aria-hidden="true"></span>Tech Blog</a>
+              </div>
+            </div>
+          </div>
+        </div>
+	</div>
+<br><br>
+
+<br><br><br>
+
+
+<section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <hr class="primary">
+                    <h2 style="font-family:  'Times New Roman', Times, serif;font-style:bold;    font-size:45px; margin-top:-10px; color:#590e80e6; margin-left:px;">This website make use of following Components</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                       <a href="http://www.python.org/" style="text-decoration:none;">  <img src="/static/img/p2.jpg" class="img-rounded" alt="Responsive image" style="  border:red; background:none; height:120px;width:150px;" >
+                      <h3>Python</h3></a>
+                        <p class="text-muted">Core language provides facilities to do cool stuffs within website .</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                     <a href="http://flask.pocoo.org/" style="text-decoration:none;"><img src="/static/img/p5.png" class="img-rounded" alt="Responsive image" style="  border:red; background:none; height:120px;width:150px;" >
+                      <h3>Flask</h3></a>
+                        <p class="text-muted">Framework which provides various functions to build web apps  . </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                           <a href="http://www.getbootstrap.com/" style="text-decoration:none;"> <img src="/static/img/p6.png" class="img-rounded" alt="Responsive image" style="  border:red; background:none; height:120px;width:150px;" >
+                            <h3>BootStrap</h3></a>
+                        <p class="text-muted">Provide awesome templates to make the website life like .</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                      <a href="https://www.sqlite.org"style="text-decoration:none;"><img src="/static/img/p4.png" class="img-rounded" alt="Responsive image" style=" height: 120px;width: 240px;" >
+                      <h3>SQLITE3</h3></a>
+                        <p class="text-muted">A database to store and retrieve the data effectively .</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<br><br>
+     <div class="container-fluid" style="text-align:center">
+			  <p class="text-muted" style="font-size:22px;" > Want The Source Code </p>
+					<a href="https://github.com/vishalkmr/Tech-Blog.git">
+                              <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+ 
+	 <div>
+
+
+</div>
+{% endblock%}
+

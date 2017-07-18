@@ -1,0 +1,276 @@
+{% extends "layout.html" %}
+
+{% block title  %}
+    Update Post
+{% endblock%}
+
+
+{% block image  %}
+'/static/img/add_post.jpg'
+{% endblock%}
+
+{% block siteheading  %}
+Update Your Post
+{% endblock%}
+
+{% block subheading  %}
+
+{% endblock%}
+
+
+
+
+{% block script%}
+
+<!-- file input-->
+<script>
+    $('#file-fr').fileinput({
+        language: 'fr',
+        uploadUrl: '#',
+        allowedFileExtensions: ['jpg', 'png', 'gif']
+    });
+    $('#file-es').fileinput({
+        language: 'es',
+        uploadUrl: '#',
+        allowedFileExtensions: ['jpg', 'png', 'gif']
+    });
+    $("#file-0").fileinput({
+        'allowedFileExtensions': ['jpg', 'png', 'gif']
+    });
+    $("#file-1").fileinput({
+        uploadUrl: '#', // you must set a valid URL here else you will get an error
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        overwriteInitial: false,
+        maxFileSize: 1000,
+        maxFilesNum: 10,
+        //allowedFileTypes: ['image', 'video', 'flash'],
+        slugCallback: function (filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
+    });
+    /*
+     $(".file").on('fileselect', function(event, n, l) {
+     alert('File Selected. Name: ' + l + ', Num: ' + n);
+     });
+     */
+    $("#file-3").fileinput({
+        showUpload: false,
+        showCaption: false,
+        browseClass: "btn btn-primary btn-lg",
+        fileType: "any",
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+        overwriteInitial: false,
+        initialPreviewAsData: true,
+        initialPreview: [
+            "http://lorempixel.com/1920/1080/transport/1",
+            "http://lorempixel.com/1920/1080/transport/2",
+            "http://lorempixel.com/1920/1080/transport/3"
+        ],
+        initialPreviewConfig: [
+            {caption: "transport-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1},
+            {caption: "transport-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2},
+            {caption: "transport-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3}
+        ]
+    });
+    $("#file-4").fileinput({
+        uploadExtraData: {kvId: '10'}
+    });
+    $(".btn-warning").on('click', function () {
+        var $el = $("#file-4");
+        if ($el.attr('disabled')) {
+            $el.fileinput('enable');
+        } else {
+            $el.fileinput('disable');
+        }
+    });
+    $(".btn-info").on('click', function () {
+        $("#file-4").fileinput('refresh', {previewClass: 'bg-info'});
+    });
+    /*
+     $('#file-4').on('fileselectnone', function() {
+     alert('Huh! You selected no files.');
+     });
+     $('#file-4').on('filebrowse', function() {
+     alert('File browse clicked for #file-4');
+     });
+     */
+    $(document).ready(function () {
+        $("#test-upload").fileinput({
+            'showPreview': false,
+            'allowedFileExtensions': ['jpg', 'png', 'gif'],
+            'elErrorContainer': '#errorBlock'
+        });
+        $("#kv-explorer").fileinput({
+            'theme': 'explorer',
+            'uploadUrl': '#',
+            overwriteInitial: false,
+            initialPreviewAsData: true,
+            initialPreview: [
+                "http://lorempixel.com/1920/1080/nature/1",
+                "http://lorempixel.com/1920/1080/nature/2",
+                "http://lorempixel.com/1920/1080/nature/3"
+            ],
+            initialPreviewConfig: [
+                {caption: "nature-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1},
+                {caption: "nature-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2},
+                {caption: "nature-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3}
+            ]
+        });
+        /*
+         $("#test-upload").on('fileloaded', function(event, file, previewId, index) {
+         alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
+         });
+         */
+    });
+</script>
+
+<!-- form validation-->
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js'></script>
+<script>
+  $(document).ready(function() {
+    $('#addpost_form').bootstrapValidator({
+        // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon',
+            invalid: 'glyphicon glyphicon',
+            validating: 'glyphicon glyphicon'
+        },
+        fields: {
+            title: {
+                validators: {
+                        stringLength: {
+                        min: 4,
+                         message:'Title contains at least 4 characters'
+                    },
+                        notEmpty: {
+                        message: 'Please enter title for the post.'
+                    }
+
+                }
+            },
+
+
+
+            content: {
+                validators: {
+                      stringLength: {
+                        min: 200,
+                        message:'Please enter at least 100 characters'
+                    },
+                    notEmpty: {
+                        message: 'Please enter the content .'
+                    }
+                    }
+                }
+            }
+        })
+        .on('success.form.bv', function(e) {
+            $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                $('#contact_form').data('bootstrapValidator').resetForm();
+
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Get the BootstrapValidator instance
+            var bv = $form.data('bootstrapValidator');
+
+            // Use Ajax to submit form data
+            $.post($form.attr('action'), $form.serialize(), function(result) {
+                console.log(result);
+            }, 'json');
+        });
+});
+</script>
+	{% endblock%}
+
+
+
+
+
+
+
+
+
+{% block body  %}
+     <div class="container">
+
+    <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center" style="font-family:Georgia, 'Times New Roman', Times, serif;font-size:35px;">UPDATE POST</h2><hr>
+
+              <form  action=""  id="addpost_form"  data-toggle="validator" role="form"  method="POST" enctype="multipart/form-data" novalidate>
+                                      <div class="form-group">
+                                      <label  class="control-label">   Title:</label>
+                                         <input type="text" class="form-control"  value="{{post.title}}"  name="title">
+
+                                      </div>
+
+                                      <div class="form-group">
+                                         <label  class="control-label"> Category :</label>
+                                          <input class="form-control" id="disabledInput1" type="text" name="d"  placeholder="{{post.category}}" disabled>
+                                        </div>
+
+
+          <img style="border-radius:12px;width: 100%;max-height:500px"   class="img-responsive" src="/static/img/posts/{{post.postid}}.jpg">
+
+
+               <br>
+
+
+                                           <div class="form-group">
+                                               <label  class="control-label">   Update Caption :</label>
+                                             <div class="form-group">
+                                                <input id="file-0d" data-overwrite-initial="/static/posts/{{post.postid}}.jpg" name="file" class="file" type="file">
+
+                                             </div></div>
+
+
+
+                                       <div class="form-group">
+                                         <label  class="control-label">  Content:</label>
+                                        <textarea name="content"   class="form-control"  placeholder="{{post.content}}"   style="height:200px;" ></textarea>
+                                        {% if error== 'Content must contain at least 200 word.' %}
+                                           <p class="help-block text-danger" style="color:red; text-align:left; font-size:12px;">* {{error}}</p>
+                                        {% else %}
+                                         {% endif %}
+
+                                        </div>
+
+                                      <div class="form-group">
+                                         <label  class="control-label"> Writer:</label>
+                                          <input class="form-control" id="disabledInput" type="text" name="author"  placeholder="{{writer}}" disabled>
+                                        </div>
+
+
+                                         <div class="modal-footer">
+                                              {% if error=='Please enter all the fields' %}
+                                           <p class="help-block text-danger" style="color:red; text-align:left; font-size:12px;">* {{error}}</p>
+                                        {% else %}
+                                         {% endif %}
+                                     <button type="submit" style=" background-color: #44cf22; boader-color:red; " class="btn btn-success btn-sml  sr-button" style="height:44px; font-family:Monaco; border:none; border-radius:large;  "><span class="glyphicon glyphicon-upload" style="font-size:13px;"    aria-hidden="true"></span>UPDATE</button>
+                                        </div>
+                                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock%}
+
+
+
+
+
+
+
+
+

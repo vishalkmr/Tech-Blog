@@ -1,0 +1,340 @@
+{% extends "layout.html" %}
+
+{% block title  %}
+   My Posts
+{% endblock%}
+
+
+{% block image  %}
+'/static/img/posts/{{post.postid}}.jpg'
+{% endblock%}
+
+{% block siteheading  %}
+   {{post.title}}
+{% endblock%}
+
+
+
+{% block subheading  %}
+   @ {{post.category}}
+{% endblock%}
+
+
+
+{% block script%}
+
+	{% endblock%}
+
+
+
+
+
+
+
+
+
+
+
+{% block body  %}
+
+<article>
+    <!-- Post Content -->
+    <div class="container-fluid">
+            <div class="row">
+                   <div class="      col-md-5 col-md-offset-2 ">
+                    <img class="img-circle" alt="profile picture" src='/static/img/profile/{{post.writer}}.jpg' onmouseout="style='height:65px;width:65px;'" onmouseover="style='height:75px;width:75px;'" style="height:65px;width:65px;">
+                     <i style="font-size:18px; margin-left:10%;margin-top:;">Posted by : </i> <text style="font-size:20px;color:#0133e1cc;font-style:italic; margin-left:5px;">{{post.writer}}</text><br>
+                      <i class="fa fa-clock-o fa-fw" style="font-size:18px; margin-left:15%;margin-top:;"> </i> <text class="text-muted" style="  font-style:italic; margin-left:5px; font-size:12px;  font-family:Arial Rounded MT Bold;">{{p_tm}}</text>
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              <button class="btn btn-default " style="padding: 2px 10px;margin-bottom:1%;" onclick="playPause()"><i class="fa  fa-microphone  " style=""> </i>  Play/Pause</button>
+                              <video id="video1" width="0" height="0" >
+                                <source src='/static/audio/{{post.postid}}.mp4' type="video/mp4">
+                                Your browser does not support HTML5 Audio/Video.
+                              </video>
+                            <script>
+var myVideo = document.getElementById("video1");
+
+function playPause() {
+    if (myVideo.paused)
+        myVideo.play();
+    else
+        myVideo.pause();
+}
+
+function makeBig() {
+    myVideo.width = 560;
+}
+
+function makeSmall() {
+    myVideo.width = 320;
+}
+
+function makeNormal() {
+    myVideo.width = 420;
+}
+</script>
+
+
+
+
+             </div>
+     <section id="services" >
+
+        <div class="container-fluid" >
+            <div class="row" >
+
+                {% if userid=="@none@"%}
+                 <div class="col-lg-3 col-md-6 text-center" style="margin-bottom:1%;">
+                    <div class="service-box">
+                         <a href="#Not_Login" style="font-size:16px; text-decoration:none;">
+                                    <div style="font-size:16px;background-color:rgba(33, 112, 243, 0.69);border-radius: 7px;boarder-color:transparent; "><center>  {{likes}}&nbsp;  like <i class="fa  fa-thumbs-o-up fa-1x" onmouseover="style='font-size:22px;'" onmouseout="style='font-size:18px;'" ></i> </center> </div>
+                         </a>   </div>
+                </div>
+                 <div class="col-lg-3 col-md-6 text-center" style="margin-bottom:1%;">
+                    <div class="service-box">
+                         <a href="#Not_Login" style="font-size:16px; text-decoration:none;">
+                                    <div style="font-size:16px;background-color:#f0ad4e;border-radius: 7px;boarder-color:transparent; "><center>  {{dislikes}}&nbsp;  Dislike <i class="fa  fa-thumbs-o-down fa-1x" onmouseover="style='font-size:22px;'" onmouseout="style='font-size:18px;'" ></i> </center> </div>
+                         </a>
+                    </div>
+                     </div>
+
+                {% elif type=='search_writer' %}
+                     <div class="col-lg-3 col-md-6 text-center" style="margin-bottom:1%;">
+                    <div class="service-box">
+                         <a href="/likes_process/like+{{post.postid}}*{{type}}" style="font-size:16px; text-decoration:none;">
+                                    <div style="font-size:16px;background-color:rgba(33, 112, 243, 0.69);border-radius: 7px;boarder-color:transparent; "><center>  {{likes}}&nbsp;  like <i class="fa  fa-thumbs-o-up fa-1x" onmouseover="style='font-size:22px;'" onmouseout="style='font-size:18px;'" ></i> </center> </div>
+                         </a>   </div>
+                </div>
+                 <div class="col-lg-3 col-md-6 text-center" style="margin-bottom:1%;">
+                    <div class="service-box">
+                         <a href="/likes_process/dislike+{{post.postid}}*{{type}}" style="font-size:16px; text-decoration:none;">
+                                    <div style="font-size:16px;background-color:#f0ad4e;border-radius: 7px;boarder-color:transparent; "><center>  {{dislikes}}&nbsp;  Dislike <i class="fa  fa-thumbs-o-down fa-1x" onmouseover="style='font-size:22px;'" onmouseout="style='font-size:18px;'" ></i> </center> </div>
+                         </a>   </div>
+
+                </div>
+
+
+               {%else %}
+                  <div class="col-lg-3 col-md-6 text-center" style="margin-bottom:1%;">
+                    <div class="service-box">
+                         <a href="/likes_process/like+{{post.postid}}*{{type}}" style="font-size:16px; text-decoration:none;">
+                                    <div style="font-size:16px;background-color:rgba(33, 112, 243, 0.69);border-radius: 7px;boarder-color:transparent; "><center>  {{likes}}&nbsp;  like <i class="fa  fa-thumbs-o-up fa-1x" onmouseover="style='font-size:22px;'" onmouseout="style='font-size:18px;'" ></i> </center> </div>
+                         </a>   </div>
+                </div>
+                 <div class="col-lg-3 col-md-6 text-center" style="margin-bottom:1%;">
+                    <div class="service-box">
+                         <a href="/likes_process/dislike+{{post.postid}}*{{type}}" style="font-size:16px; text-decoration:none;">
+                                    <div style="font-size:16px;background-color:#f0ad4e;border-radius: 7px;boarder-color:transparent; "><center>  {{dislikes}}&nbsp;  Dislike <i class="fa  fa-thumbs-o-down fa-1x" onmouseover="style='font-size:22px;'" onmouseout="style='font-size:18px;'" ></i> </center> </div>
+                         </a>   </div>
+
+                </div>
+
+                {%endif%}
+                 <div class="col-lg-3 col-md-6 text-center" style="margin-bottom:1%;">
+                    <div class="service-box">
+                             <a href="#comments" style="font-size:16px; text-decoration:none;">
+                                    <div style="font-size:16px;background-color:#5cb85c;border-radius: 7px;boarder-color:transparent; "><center> &nbsp;<i class="fa fa-comments fa-1x" onmouseover="style='font-size:22px;'" onmouseout="style='font-size:18px;'"></i>  {{count_comment}} Comments </center> </div>
+                         </a>
+    </div> </div>
+
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+
+
+<br>
+
+
+
+   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      {{post.content}}
+                </div>
+
+             </div>
+ <br>
+
+</div>
+
+<a name="comments"></a>
+    <!-- Comment -->
+    <div class="chat-panel panel panel-default" style="margin-left: 5%;margin-right: 5%;">
+                        <div class="panel-heading">
+                           <h4> <i class="fa fa-comments fa-fw"></i> Comments</h4>
+                        </div>
+
+
+                        <div class="panel-body">
+                            <ul class="list-unstyled">
+                                {% if cmt %}
+                                {% for c in cmt %}
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                          <img class="img-responsive" alt="profile picture" src='/static/img/profile/{{c.userid}}.jpg' onmouseout="style='height:65px;width:65px;'" onmouseover="style='height:75px;width:75px;'" style="height:65px;width:65px;">
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong style="margin-left:2%;" class="primary-font">{{c.userid}}</strong>
+                                            <small class="pull-center text-muted">
+                                                <i style="margin-left:2%;" class="fa fa-clock-o fa-fw"></i> {{c.date.day}}-{{c.date.month}}-{{c.date.year}}
+                                            </small>
+                                        </div>
+                                        <p style="">
+
+                                             {%  print(c.content) %}
+
+
+                                        </p>
+                                    </div>
+                                </li><hr>
+                                {% endfor %}
+                                {%else%}
+                                 <text class="text-muted"> No comment is available .....</text>
+
+                                {% endif %}
+
+                            </ul>
+                        </div>
+
+
+        <!-- comment form-->
+        {% if userid=="@none@"%}
+                           <div class="panel-footer" >
+
+                           </div>
+           {% elif type=='search_writer' %}
+                          <div class="panel-footer" >
+                              <form id="comment_form"  action="/comment_process/{{userid}}+{{post.postid}}*{{type}}" method="POST">
+
+                                   <div class="form-group">
+
+                                        <textarea name="content"  placeholder="Type your comment here ......"  class="form-control" required ></textarea>
+                                      </div>
+
+                                <div class="form-group">
+
+                                     <button type="submit" style="width:50%;height:50%;margin-left:20%;;margin-top:-1%;;  border-radius:10px; position:relative;"  class="btn btn-warning" role="button"> Comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                                </div>
+                                  </form>
+
+                           </div>
+        {% else %}
+                        <div class="panel-footer" >
+                              <form id="comment_form"  action="/comment_process/{{userid}}+{{post.postid}}*{{type}}" method="POST">
+
+                                   <div class="form-group">
+
+                                        <textarea name="content"  placeholder="Type your comment here ......"  class="form-control" required ></textarea>
+                                      </div>
+
+                                <div class="form-group">
+
+                                     <button type="submit" style="width:50%;height:50%;margin-left:20%;;margin-top:-1%;;  border-radius:10px; position:relative;"  class="btn btn-warning" role="button"> Comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                                </div>
+                                  </form>
+
+                           </div>
+        {% endif %}
+
+                    </div>
+
+
+</article>
+
+
+
+
+<br>
+<br>
+
+<div class="container" style="text-align:center;"  >
+     <a type="button" href="/post_update/{{post.postid}}"   style=" background-color:; boader-color:red;border-radius:12px; "  class="btn btn-success"><span class="glyphicon glyphicon-upload" aria-hidden="true"> </span> Update </a>
+&nbsp;
+
+     <button   type="button" style="   border-radius: 12px  " class="btn btn-danger " data-toggle="modal" data-target="#myModal8"> <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>  Detete </button></li>
+
+                        <!-- Modal for login-->
+                           <div class="modal fade"   id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel8">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header" style="background-color:rgba(244, 67, 54, 0.45);">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                   <h4 class="modal-title" id="myModalLabel8"><span class="glyphicon glyphicon-fire    " style="font-size:27px; border:none; color:#f77;    " aria-hidden="true"></span>DELETE POST</h4>
+                              </div>
+                              <div class="modal-body">
+                            <form action="/update_profile/delete_account" id="" enctype="multipart/form-data"   method="POST" >
+                                <div class="form-group">
+
+                                   <div class="input-group" style="text-align:left;">
+
+                                       <text style="text-align:center"> By Clicking on Confirm Button , Your Post Would Be deleted !</text><br>
+
+                                   </div></div>
+                                <div class="modal-footer">
+                                    <button   type="button" style=" border-radius:12px; " class="btn btn-warning " data-dismiss="modal">Close</button>
+                                    <a type="button" href="/delete_mypost/{{post.postid}}"   style=" background-color:; boader-color:red;border-radius:12px; "  class="btn btn-success"><i class="fa "></i> Confirm </a>
+                                </div>
+                            </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+</div>
+
+
+
+
+<br>
+
+
+<br>
+<br>
+<!-- prev and next-->
+<div class="container">
+     <div class="row">
+         <div class="box">
+             <div class="col-lg-12 text-center">
+                    <ul class="pager">
+
+
+                        {% if minid == maxid and type =='search_writer'  %}
+                           <li class="next"><a href="../my_post/{{post.writer}}+{{maxid}}" class="btn ">Next <span style=" "  class="glyphicon glyphicon-king" aria-hidden="true"></span> </a></li>
+                           <li class="previous"><a href="../my_post/{{post.writer}}+{{maxid}}" class="btn "><span class="glyphicon glyphicon-queen" aria-hidden="true"></span> Prev</a></li>
+                        {% elif post.postid == maxid and type=='search_writer'  %}
+                            <li class="next"><a href="../my_post/{{post.writer}}+{{minid}}" class="btn ">Next <span style=" "  class="glyphicon glyphicon-king" aria-hidden="true"></span></a></li>
+                            <li class="previous"><a href="../my_post/{{post.writer}}+{{previd}}"><span class="glyphicon glyphicon-queen" aria-hidden="true"></span> Prev</a></li>
+                        {%  elif post.postid == minid and type=='search_writer'  %}
+                          <li class="previous"> <a href="../my_post/{{post.writer}}+{{maxid}}" class="btn"><span class="glyphicon glyphicon-queen" aria-hidden="true"></span> Older</a></li>
+                          <li class="next"><a href="../my_post/{{post.writer}}+{{nextid}}">Next <span style=" "  class="glyphicon glyphicon-king" aria-hidden="true"></span> </a></li>
+
+
+                    {% elif  type=='search_writer' %}
+                        <li class="next"><a href="../my_post/{{post.writer}}+{{nextid}}">Next <span style=" "  class="glyphicon glyphicon-king" aria-hidden="true"></span> </a></li>
+                        <li class="previous"><a href="../my_post/{{post.writer}}+{{previd}}"><span class="glyphicon glyphicon-queen" aria-hidden="true"></span> Prev</a></li>
+
+
+
+
+                        {% else %}
+                        {% endif %}
+
+
+
+                    </ul>
+             </div>
+         </div>
+
+        </div>
+
+</div>
+
+
+
+
+{% endblock %}
+

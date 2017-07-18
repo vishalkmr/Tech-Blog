@@ -1,0 +1,36 @@
+*******------------------------------------------------*******
+*	   Tech Blog Features                            *
+*******------------------------------------------------*******
+
+######## For Normal users Techs Blog provides following features #######
+               1)  It allows users to View different blogs of different category ,  posted by registered users , without any logged-in.
+               2)  User can Contact to  developer  through 	Contact Me Page.
+               3)  User can Create there account through Signup Page .
+               				
+
+####### For Registered users Techs Blog provides additional features like #######
+              1)   It allows users to View different blogs of different category .       
+              2)   Users can Post their blog  .
+              3)   Users can View their own blogs. 
+              4)   Users can Update /Delete their blogs.
+              5)   Users can Comment different blogs  .
+              6)   Users can Like/Dislike different blogs  .
+              7)   Users can View / Update their Profile-Picture , Password , Mobile No. , User-id , Email-id .		
+              8)   Users can Delete their Account  .
+              9)   Users can Contact to developer .
+
+
+#######           Admin have following features     #######
+      		1) Promote the user to Admin
+		2) Delete the user	
+		3) Deactivate the user
+        		4) Activte an user
+       		5) Delete a post
+		6) Delete a comment	
+		7) View system Details
+		8) All the feature of Registered users .
+
+################# Admin User ###############
+                  	                User-id: Vishal
+                	               Password:123
+############################################	

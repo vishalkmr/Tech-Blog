@@ -1,0 +1,123 @@
+{% extends "layout.html" %}
+
+{% block title  %}
+   Admin
+{% endblock%}
+
+
+
+
+{% block image  %}
+'/static/img/maintain.jpg'
+{% endblock%}
+
+{% block siteheading  %}
+ Maintainance
+{% endblock%}
+
+{% block subheading  %}
+
+{% endblock%}
+
+
+{% block body  %}
+   <!-- Main Content -->
+
+
+
+<div class="container" style="text-align:center;"     >
+          <form class="well form-inline 2" id="" action="/admin/admin" method="POST" >
+                <legend style="text-align:center;">  Promote the User to Admin </legend>
+                             <div class="form-group">
+                              <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-cog "   ></i></span>
+                              <input  name="user"  value="" placeholder="user-id" class="form-control"  type="text">
+                                </div>
+                             </div>
+                                    <button type="submit"style=" background-color:; boader-color:red;border-radius:12px; "  class="btn btn-info"><i class="fa fa-eye "></i></span> Confirm </button>
+                            </form>
+</div>
+
+
+<div class="container" style="text-align:center;"  >
+          <form class="well form-inline 2" id="userd" action="/admin/user_deactivate" method="POST" >
+                <legend style="text-align:center;">  Deactivate User </legend>
+                             <div class="form-group">
+                              <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"   ></i></span>
+                              <input  name="user"  value="" placeholder="user-id" class="form-control"  type="text">
+                                </div>
+                             </div>
+                                    <button type="submit"style=" background-color:; boader-color:red;border-radius:12px; "  class="btn btn-success"> <i class="fa fa-eye-slash "></i> Deactive </button>
+                            </form>
+</div>
+
+<div class="container" style="text-align:center;"     >
+          <form class="well form-inline 2" id="user" action="/admin/user_activate" method="POST" >
+                <legend style="text-align:center;">  Activate User </legend>
+                            <div class="form-group">
+                              <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"   ></i></span>
+                              <input  name="user"  value="" placeholder="user-id" class="form-control"  type="text">
+                                </div>
+                             </div>
+                                    <button type="submit"style=" background-color:; boader-color:red;border-radius:12px; "  class="btn btn-warning"><i class="fa fa-eye "></i></span> Activate </button>
+                            </form>
+</div>
+
+ <div class="container" style="text-align:center;"  >
+           <form class="well form-inline " id="" action="/admin/user_delete" method="POST" >
+                <legend style="text-align:center;"> Delete User </legend>
+                              <div class="form-group">
+                              <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                              <input  name="user"  value="" placeholder="User-id" class="form-control"  type="text">
+                                </div>
+                             </div>
+                                    <button type="submit"style=" background-color: ; boader-color:red;border-radius:12px; "  class="btn btn-danger"><i class="fa fa-trash-o "></i> Delete</button>
+                            </form>
+</div>
+
+
+<div class="container" style="text-align:center;"  >
+          <form class="well form-inline 1" id="post_form" action="/admin/post" method="POST" >
+                <legend style="text-align:center;"> Delete Post </legend>
+                             <div class="form-group">
+                              <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
+                              <input  name="postid"  value="" placeholder="Post-id" class="form-control"  type="text">
+                                </div>
+                             </div>
+                                    <button type="submit"style=" background-color:; boader-color:red;border-radius:12px; "  class="btn btn-info"><i class="fa fa-trash-o "></i> Delete</button>
+                            </form>
+</div>
+
+
+
+ <div class="container" style="text-align:center;"  >
+           <form class="well form-inline " id="comment" action="/admin/comment" method="POST" >
+                <legend style="text-align:center;"> Delete Comment </legend>
+                              <div class="form-group">
+                              <div class="input-group">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                              <input  name="commentid"  value="" placeholder="Comment-id" class="form-control"  type="text">
+                                </div>
+                             </div>
+
+                                    <button type="submit"style=" background-color: ; boader-color:red;border-radius:12px; "  class="btn btn-success"><i class="fa fa-trash-o "></i> Delete</button>
+                            </form>
+</div>
+
+
+ <div class="container" style="text-align:center;"  >
+           <form class="well form-inline " id="" action="/admin/comment" method="POST" >
+                <legend style="text-align:center;"> System Details  </legend>
+                                  <a href="/display_users/"  type="submit"style=" background-color: ; boader-color:red;border-radius:12px;margin-top:2%;margin-left:2%; "  class="btn btn-info">  Users Details </a>
+                                    <a href="/posts_details/"  type="submit"style=" background-color: ; boader-color:red;border-radius:12px;margin-top:2%;margin-left:2%; "  class="btn btn-warning">  Posts Details </a>
+                        <a href="/comments_details/"  type="submit"style=" background-color: ; boader-color:red;border-radius:12px;margin-top:2%;margin-left:2%; "  class="btn btn-success"> Comments Details </a>
+                 <a href="/contact_details/"  type="submit"style=" background-color: ; boader-color:red;border-radius:12px;margin-top:2%;margin-left:2%; "  class="btn btn-danger">  Contact Details </a>
+                            </form>
+</div>
+
+
+{% endblock%}
